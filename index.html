@@ -11,7 +11,6 @@ body{
 background: linear-gradient(160deg,#0f1a14,#1f3326,#3b2a1e);
 color:#f5f5f5;
 overflow-x:hidden;
-position:relative;
 }
 section{
 min-height:100vh;
@@ -42,7 +41,6 @@ padding:25px;
 border-radius:20px;
 margin:15px;
 max-width:600px;
-transition: all 0.3s ease;
 }
 .hidden{display:none;}
 input{
@@ -84,7 +82,6 @@ border-radius:15px;
 margin:30px 0;
 position:relative;
 width:45%;
-transition: all 0.3s ease;
 }
 .timeline-item:nth-child(odd){left:-5%;}
 .timeline-item:nth-child(even){left:55%;}
@@ -103,17 +100,13 @@ align-items:center;
 justify-content:center;
 border-radius:15px;
 color:#aaa;
-transition: all 0.3s ease;
 }
 iframe{border-radius:15px;margin-top:20px;}
-.heart, .mouse-heart{
+.heart{
 position:fixed;
-pointer-events:none;
+color:#2f4f3b;
 animation:float 6s linear infinite;
-z-index:9999;
 }
-.heart{color:#ffb6c1;}
-.mouse-heart{color:#fff;}
 @keyframes float{
 from{transform:translateY(100vh);}
 to{transform:translateY(-10vh);}
@@ -125,39 +118,6 @@ width:90%;
 left:0 !important;
 margin-left:20px;
 }
-}
-
-/* EXTRA CSS */
-/* Arka plan yıldızları */
-.star {
-position: fixed;
-background: rgba(255,255,255,0.8);
-border-radius: 50%;
-width: 2px;
-height: 2px;
-pointer-events: none;
-animation: starMove linear infinite;
-z-index:0;
-}
-@keyframes starMove {
-0% { transform: translateY(-10px); opacity: 0; }
-50% { opacity: 1; }
-100% { transform: translateY(100vh); opacity: 0; }
-}
-/* Hover efektleri */
-button:hover, .card:hover {
-transform: scale(1.05);
-box-shadow: 0 0 20px rgba(255,255,255,0.3);
-}
-/* Scroll fade-in */
-.fade-in {
-opacity: 0;
-transform: translateY(20px);
-transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.fade-in.show {
-opacity: 1;
-transform: translateY(0);
 }
 </style>
 </head>
@@ -194,14 +154,39 @@ Biz Olduğumuz Gün: 14 Şubat 2026 🤎</p>
 <section>
 <h2>Hikayemiz 📖</h2>
 <div class="timeline">
-<div class="timeline-item">🎆 31 Aralık 2025 – Yılın En Güzel Mesajı</div>
-<div class="timeline-item">💬 İlk Uzun Sohbetimiz – Saatlerin nasıl geçtiğini anlamadığım gece</div>
-<div class="timeline-item">📱 Mesajını Beklediğim İlk An – Telefon ekranına gereksiz bakmaya başladığım gün</div>
-<div class="timeline-item">😊 Adını Görünce Gülümsediğim An</div>
-<div class="timeline-item">💌 Sana Karşı Hissettiğimi Fark Ettiğim Gün</div>
-<div class="timeline-item">🌿 14 Şubat 2026 – Biz Olduğumuz Gün</div>
-<div class="timeline-item">🤎 İlk Kıskanışım</div>
-<div class="timeline-item">✨ İlk “İyi ki” Dediğim An</div>
+
+<div class="timeline-item">
+🎆 31 Aralık 2025 – Yılın En Güzel Mesajı
+</div>
+
+<div class="timeline-item">
+💬 İlk Uzun Sohbetimiz – Saatlerin nasıl geçtiğini anlamadığım gece
+</div>
+
+<div class="timeline-item">
+📱 Mesajını Beklediğim İlk An – Telefon ekranına gereksiz bakmaya başladığım gün
+</div>
+
+<div class="timeline-item">
+😊 Adını Görünce Gülümsediğim An
+</div>
+
+<div class="timeline-item">
+💌 Sana Karşı Hissettiğimi Fark Ettiğim Gün
+</div>
+
+<div class="timeline-item">
+🌿 14 Şubat 2026 – Biz Olduğumuz Gün
+</div>
+
+<div class="timeline-item">
+🤎 İlk Kıskanışım
+</div>
+
+<div class="timeline-item">
+✨ İlk “İyi ki” Dediğim An
+</div>
+
 </div>
 </section>
 
@@ -262,26 +247,17 @@ Seni düşündüğüm her an yüzümde istemsiz bir gülümseme oluyor.
 </div>
 
 <script>
-window.addEventListener('load', ()=>{
-
-// Şifre kontrol
 function checkPassword(){
 if(document.getElementById("password").value==="1012"){
 document.getElementById("lock").style.display="none";
 document.getElementById("main").classList.remove("hidden");
 startHearts();
-startMouseHearts();
-} else{alert("Yanlış şifre");}
+startClickEffects(); // 🕹 tıklama animasyonu başlat
+}else{alert("Yanlış şifre");}
 }
-window.checkPassword = checkPassword;
-
-// Kaydırma
 function scrollToSection(id){
 document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
-window.scrollToSection = scrollToSection;
-
-// Zaman sayacı
 const startDate=new Date("2025-12-31T00:00:00").getTime();
 setInterval(()=>{
 const now=new Date().getTime();
@@ -291,19 +267,14 @@ document.getElementById("hours").innerText=Math.floor((diff%(1000*60*60*24))/(10
 document.getElementById("minutes").innerText=Math.floor((diff%(1000*60*60))/(1000*60));
 document.getElementById("seconds").innerText=Math.floor((diff%(1000*60))/1000);
 },1000);
-
-// Sürpriz metin
 function showSurprise(){
 document.getElementById("surprise").classList.toggle("hidden");
 }
-window.showSurprise = showSurprise;
-
-// 💖 Arka planda yavaş düşen kalpler
 function startHearts(){
 setInterval(()=>{
 let heart=document.createElement("div");
 heart.classList.add("heart");
-heart.innerHTML="💖";
+heart.innerHTML="🤎";
 heart.style.left=Math.random()*100+"vw";
 heart.style.fontSize=(15+Math.random()*25)+"px";
 document.body.appendChild(heart);
@@ -311,52 +282,61 @@ setTimeout(()=>heart.remove(),6000);
 },1200);
 }
 
-// ✨ Mouse hareketinde çıkan küçük kalpler
-function startMouseHearts(){
-document.addEventListener("mousemove", function(e){
-let heart=document.createElement("div");
-heart.classList.add("mouse-heart");
-heart.innerHTML="✨";
-heart.style.left=(e.clientX-10)+"px";
-heart.style.top=(e.clientY-10)+"px";
-heart.style.fontSize=(10+Math.random()*10)+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),500);
-});
-}
+// --------------------------
+// 🕹 TIKLAMA OYUNU / ÖZEL KELİMELER
+// --------------------------
+function startClickEffects(){
+  let clickCount = 0;
+  const words = ["Paksır", "çorba"];
+  
+  document.addEventListener('click', function(e){
+    clickCount++;
 
-// EXTRA: Arka plan yıldızları
-function createStars(count = 50){
-  for(let i=0;i<count;i++){
-    let star = document.createElement('div');
-    star.classList.add('star');
-    star.style.left = Math.random()*100 + 'vw';
-    star.style.top = Math.random()*100 + 'vh';
-    star.style.width = star.style.height = (1 + Math.random()*2)+'px';
-    star.style.animationDuration = (5 + Math.random()*10)+'s';
-    document.body.appendChild(star);
-    setTimeout(()=>star.remove(), 15000);
-  }
-}
-setInterval(()=>{ createStars(5); }, 1000);
+    // Kalp veya yıldız efekti
+    let effect = document.createElement('div');
+    effect.style.position = 'fixed';
+    effect.style.left = (e.clientX - 10) + 'px';
+    effect.style.top = (e.clientY - 10) + 'px';
+    effect.style.fontSize = (15 + Math.random()*20) + 'px';
+    effect.style.zIndex = 9999;
+    effect.style.pointerEvents = 'none';
+    effect.innerHTML = Math.random() < 0.5 ? "💖" : "✨";
+    document.body.appendChild(effect);
+    setTimeout(()=> effect.remove(), 1000);
 
-// Scroll fade-in
-function scrollFadeIn(){
-  const elements = document.querySelectorAll('section');
-  elements.forEach(el=>{
-    const rect = el.getBoundingClientRect();
-    if(rect.top < window.innerHeight - 50){
-      el.classList.add('show');
+    // Kelime efekti
+    let wordEffect = document.createElement('div');
+    wordEffect.style.position = 'fixed';
+    wordEffect.style.left = (e.clientX + 10) + 'px';
+    wordEffect.style.top = (e.clientY - 20) + 'px';
+    wordEffect.style.color = '#fff';
+    wordEffect.style.fontSize = (12 + Math.random()*10) + 'px';
+    wordEffect.style.zIndex = 9999;
+    wordEffect.style.pointerEvents = 'none';
+    wordEffect.innerHTML = words[Math.floor(Math.random()*words.length)];
+    document.body.appendChild(wordEffect);
+    setTimeout(()=> wordEffect.remove(), 1200);
+
+    // 10. tıklamada sürpriz mesaj
+    if(clickCount % 10 === 0){
+      let surprise = document.createElement('div');
+      surprise.innerHTML = "Seni çok seviyorum 💖";
+      surprise.style.position = 'fixed';
+      surprise.style.top = '50%';
+      surprise.style.left = '50%';
+      surprise.style.transform = 'translate(-50%, -50%)';
+      surprise.style.background = 'rgba(0,0,0,0.7)';
+      surprise.style.padding = '20px 40px';
+      surprise.style.borderRadius = '20px';
+      surprise.style.color = '#fff';
+      surprise.style.fontSize = '24px';
+      surprise.style.zIndex = 99999;
+      surprise.style.textAlign = 'center';
+      document.body.appendChild(surprise);
+      setTimeout(()=> surprise.remove(), 2500);
     }
   });
 }
-window.addEventListener('scroll', scrollFadeIn);
-window.addEventListener('load', scrollFadeIn);
-
-// Başlangıçta tüm sectionlara fade-in class ekle
-document.querySelectorAll('section').forEach(s=>s.classList.add('fade-in'));
-
-}); // window load sonu
 </script>
 
 </body>

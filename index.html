@@ -1,5 +1,133 @@
-<!-- EXTRA EKLENTİLER: CSS -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belinay 🌿</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{
+background: linear-gradient(160deg,#0f1a14,#1f3326,#3b2a1e);
+color:#f5f5f5;
+overflow-x:hidden;
+position:relative;
+}
+section{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:60px 20px;
+text-align:center;
+}
+h1,h2{margin-bottom:20px;}
+button{
+padding:12px 28px;
+border:none;
+border-radius:30px;
+background:#3b2a1e;
+color:#f5f5f5;
+cursor:pointer;
+transition:.3s;
+margin-top:20px;
+}
+button:hover{background:#2f4f3b;}
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+padding:25px;
+border-radius:20px;
+margin:15px;
+max-width:600px;
+}
+.hidden{display:none;}
+input{
+padding:10px;
+border-radius:20px;
+border:none;
+text-align:center;
+}
+#countdown{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:20px;
+}
+.time-box{
+background:#1f3326;
+padding:20px;
+border-radius:15px;
+width:100px;
+}
+.timeline{
+position:relative;
+max-width:700px;
+}
+.timeline::before{
+content:'';
+position:absolute;
+left:50%;
+width:3px;
+height:100%;
+background:#2f4f3b;
+transform:translateX(-50%);
+}
+.timeline-item{
+background:#1f3326;
+padding:20px;
+border-radius:15px;
+margin:30px 0;
+position:relative;
+width:45%;
+}
+.timeline-item:nth-child(odd){left:-5%;}
+.timeline-item:nth-child(even){left:55%;}
+.gallery{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+justify-content:center;
+}
+.placeholder{
+width:200px;
+height:200px;
+border:2px dashed #2f4f3b;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:15px;
+color:#aaa;
+}
+iframe{border-radius:15px;margin-top:20px;}
+.heart{
+position:fixed;
+color:#2f4f3b;
+animation:float 6s linear infinite;
+}
+.mouse-heart{
+position:fixed;
+color:#fff;
+animation:float 6s linear infinite;
+pointer-events:none;
+}
+@keyframes float{
+from{transform:translateY(100vh);}
+to{transform:translateY(-10vh);}
+}
+@media(max-width:768px){
+.timeline::before{left:10px;}
+.timeline-item{
+width:90%;
+left:0 !important;
+margin-left:20px;
+}
+}
+
+/* EXTRA EKLENTİLER: CSS */
 /* Arka plan yıldızları */
 .star {
   position: fixed;
@@ -16,14 +144,12 @@
   50% { opacity: 1; }
   100% { transform: translateY(100vh); opacity: 0; }
 }
-
 /* Hover efektleri */
 button:hover, .card:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px rgba(255,255,255,0.3);
   transition: all 0.3s ease;
 }
-
 /* Scroll fade-in */
 .fade-in {
   opacity: 0;
@@ -35,9 +161,160 @@ button:hover, .card:hover {
   transform: translateY(0);
 }
 </style>
+</head>
+<body>
 
-<!-- EXTRA EKLENTİLER: JS -->
+<section id="lock">
+<h1>🔐 Özel Alan</h1>
+<p>Anahtarını gir</p>
+<input type="password" id="password" maxlength="4">
+<br>
+<button onclick="checkPassword()">Aç</button>
+</section>
+
+<div id="main" class="hidden">
+
+<section>
+<h1>Hoş Geldin Balım 🌿</h1>
+<p>Bu site, sana olan hislerimin sade ama gerçek bir yansıması.</p>
+<button onclick="scrollToSection('time')">Devam Et</button>
+</section>
+
+<section id="time">
+<h2>Seninle Geçen Zaman ⏳</h2>
+<div id="countdown">
+<div class="time-box"><h2 id="days">0</h2><p>Gün</p></div>
+<div class="time-box"><h2 id="hours">0</h2><p>Saat</p></div>
+<div class="time-box"><h2 id="minutes">0</h2><p>Dakika</p></div>
+<div class="time-box"><h2 id="seconds">0</h2><p>Saniye</p></div>
+</div>
+<p style="margin-top:20px;">Tanışma: 31 Aralık 2025 🌿<br>
+Biz Olduğumuz Gün: 14 Şubat 2026 🤎</p>
+</section>
+
+<section>
+<h2>Hikayemiz 📖</h2>
+<div class="timeline">
+<div class="timeline-item">🎆 31 Aralık 2025 – Yılın En Güzel Mesajı</div>
+<div class="timeline-item">💬 İlk Uzun Sohbetimiz – Saatlerin nasıl geçtiğini anlamadığım gece</div>
+<div class="timeline-item">📱 Mesajını Beklediğim İlk An – Telefon ekranına gereksiz bakmaya başladığım gün</div>
+<div class="timeline-item">😊 Adını Görünce Gülümsediğim An</div>
+<div class="timeline-item">💌 Sana Karşı Hissettiğimi Fark Ettiğim Gün</div>
+<div class="timeline-item">🌿 14 Şubat 2026 – Biz Olduğumuz Gün</div>
+<div class="timeline-item">🤎 İlk Kıskanışım</div>
+<div class="timeline-item">✨ İlk “İyi ki” Dediğim An</div>
+</div>
+</section>
+
+<section>
+<h2>Bir Gün Dolduracağız 📸</h2>
+<div class="gallery">
+<div class="placeholder">Birlikte Fotoğrafımız</div>
+<div class="placeholder">Gülüşün</div>
+<div class="placeholder">Aynı Kare</div>
+</div>
+<p style="margin-top:20px;">Bir gün burayı gerçek anılarımızla dolduracağız.</p>
+</section>
+
+<section>
+<h2>Gelecek Hayallerim 🌍</h2>
+<div class="card">
+Bir gün aynı evin içinde sabah uyanmak...  
+Aynı mutfakta kahve yapmak...  
+Aynı koltukta film izlemek...  
+Gerçek bir sarılmanın sıcaklığını hissetmek.
+</div>
+</section>
+
+<section>
+<h2>Neden Sen? 🤍</h2>
+<div class="card">
+Hayatıma girdiğin günden beri bazı şeyler değişti.<br><br>
+Doğru kişiyi bulduğumu ilk defa gerçekten hissettim.<br><br>
+Ve zaman geçtikçe bunun sadece hoşlanmak değil,<br><br>
+gerçekten aşık olmak olduğunu fark ettim.
+</div>
+</section>
+
+<section>
+<h2>Sana Söyleyemediklerim 🌙</h2>
+<div class="card">
+Bazen sana her şeyi açık açık söylemek istiyorum ama kelimeler yetmiyor. 
+Konuşurken daha sakin ve daha iyi bir versiyonum gibi hissediyorum. 
+Hayatıma gelişin planlı değildi belki ama doğruydu. 
+Bunu her zaman söyleyemem ama içimde gerçekten özel bir yerin var.
+</div>
+</section>
+
+<section>
+  <h2>♪ Bizim Şarkımız</h2>
+  <button onclick="window.open('https://www.youtube.com/watch?v=0Yp6iZQ8x6M','_blank')">
+  Şarkımızı Çal 🎵
+</button>
+</section>
+
+<section>
+<button onclick="showSurprise()">Buna Tıklama 🙃</button>
+<p id="surprise" class="hidden" style="margin-top:20px;">
+Seni düşündüğüm her an yüzümde istemsiz bir gülümseme oluyor.
+</p>
+</section>
+
+</div>
+
 <script>
+function checkPassword(){
+if(document.getElementById("password").value==="1012"){
+document.getElementById("lock").style.display="none";
+document.getElementById("main").classList.remove("hidden");
+startHearts();
+startMouseHearts();
+} else{alert("Yanlış şifre");}
+}
+function scrollToSection(id){
+document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+const startDate=new Date("2025-12-31T00:00:00").getTime();
+setInterval(()=>{
+const now=new Date().getTime();
+const diff=now-startDate;
+document.getElementById("days").innerText=Math.floor(diff/(1000*60*60*24));
+document.getElementById("hours").innerText=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+document.getElementById("minutes").innerText=Math.floor((diff%(1000*60*60))/(1000*60));
+document.getElementById("seconds").innerText=Math.floor((diff%(1000*60))/1000);
+},1000);
+function showSurprise(){
+document.getElementById("surprise").classList.toggle("hidden");
+}
+
+// 💖 Arka planda yavaş düşen kalpler
+function startHearts(){
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="💖";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(15+Math.random()*25)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},1200);
+}
+
+// ✨ Mouse hareketinde çıkan küçük kalpler
+function startMouseHearts(){
+document.addEventListener("mousemove", function(e){
+let heart=document.createElement("div");
+heart.classList.add("mouse-heart");
+heart.innerHTML="✨";
+heart.style.left=(e.clientX-10)+"px";
+heart.style.top=(e.clientY-10)+"px";
+heart.style.fontSize=(10+Math.random()*10)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),500);
+});
+}
+
+// EXTRA EKLENTİLER: JS
 // Arka plan yıldızları
 function createStars(count = 50){
   for(let i=0;i<count;i++){
@@ -69,3 +346,6 @@ window.addEventListener('load', scrollFadeIn);
 // Başlangıçta tüm sectionlara fade-in class ekle
 document.querySelectorAll('section').forEach(s=>s.classList.add('fade-in'));
 </script>
+
+</body>
+</html>

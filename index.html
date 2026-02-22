@@ -42,6 +42,7 @@ padding:25px;
 border-radius:20px;
 margin:15px;
 max-width:600px;
+transition: all 0.3s ease;
 }
 .hidden{display:none;}
 input{
@@ -83,6 +84,7 @@ border-radius:15px;
 margin:30px 0;
 position:relative;
 width:45%;
+transition: all 0.3s ease;
 }
 .timeline-item:nth-child(odd){left:-5%;}
 .timeline-item:nth-child(even){left:55%;}
@@ -101,19 +103,17 @@ align-items:center;
 justify-content:center;
 border-radius:15px;
 color:#aaa;
+transition: all 0.3s ease;
 }
 iframe{border-radius:15px;margin-top:20px;}
-.heart{
+.heart, .mouse-heart{
 position:fixed;
-color:#2f4f3b;
-animation:float 6s linear infinite;
-}
-.mouse-heart{
-position:fixed;
-color:#fff;
-animation:float 6s linear infinite;
 pointer-events:none;
+animation:float 6s linear infinite;
+z-index:9999;
 }
+.heart{color:#ffb6c1;}
+.mouse-heart{color:#fff;}
 @keyframes float{
 from{transform:translateY(100vh);}
 to{transform:translateY(-10vh);}
@@ -127,38 +127,37 @@ margin-left:20px;
 }
 }
 
-/* EXTRA EKLENTİLER: CSS */
+/* EXTRA CSS */
 /* Arka plan yıldızları */
 .star {
-  position: fixed;
-  background: rgba(255,255,255,0.8);
-  border-radius: 50%;
-  width: 2px;
-  height: 2px;
-  pointer-events: none;
-  animation: starMove linear infinite;
-  z-index: 0;
+position: fixed;
+background: rgba(255,255,255,0.8);
+border-radius: 50%;
+width: 2px;
+height: 2px;
+pointer-events: none;
+animation: starMove linear infinite;
+z-index:0;
 }
 @keyframes starMove {
-  0% { transform: translateY(-10px); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateY(100vh); opacity: 0; }
+0% { transform: translateY(-10px); opacity: 0; }
+50% { opacity: 1; }
+100% { transform: translateY(100vh); opacity: 0; }
 }
 /* Hover efektleri */
 button:hover, .card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255,255,255,0.3);
-  transition: all 0.3s ease;
+transform: scale(1.05);
+box-shadow: 0 0 20px rgba(255,255,255,0.3);
 }
 /* Scroll fade-in */
 .fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.8s ease, transform 0.8s ease;
 }
 .fade-in.show {
-  opacity: 1;
-  transform: translateY(0);
+opacity: 1;
+transform: translateY(0);
 }
 </style>
 </head>
@@ -263,6 +262,9 @@ Seni düşündüğüm her an yüzümde istemsiz bir gülümseme oluyor.
 </div>
 
 <script>
+window.addEventListener('load', ()=>{
+
+// Şifre kontrol
 function checkPassword(){
 if(document.getElementById("password").value==="1012"){
 document.getElementById("lock").style.display="none";
@@ -271,9 +273,15 @@ startHearts();
 startMouseHearts();
 } else{alert("Yanlış şifre");}
 }
+window.checkPassword = checkPassword;
+
+// Kaydırma
 function scrollToSection(id){
 document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
+window.scrollToSection = scrollToSection;
+
+// Zaman sayacı
 const startDate=new Date("2025-12-31T00:00:00").getTime();
 setInterval(()=>{
 const now=new Date().getTime();
@@ -283,9 +291,12 @@ document.getElementById("hours").innerText=Math.floor((diff%(1000*60*60*24))/(10
 document.getElementById("minutes").innerText=Math.floor((diff%(1000*60*60))/(1000*60));
 document.getElementById("seconds").innerText=Math.floor((diff%(1000*60))/1000);
 },1000);
+
+// Sürpriz metin
 function showSurprise(){
 document.getElementById("surprise").classList.toggle("hidden");
 }
+window.showSurprise = showSurprise;
 
 // 💖 Arka planda yavaş düşen kalpler
 function startHearts(){
@@ -314,8 +325,7 @@ setTimeout(()=>heart.remove(),500);
 });
 }
 
-// EXTRA EKLENTİLER: JS
-// Arka plan yıldızları
+// EXTRA: Arka plan yıldızları
 function createStars(count = 50){
   for(let i=0;i<count;i++){
     let star = document.createElement('div');
@@ -330,7 +340,7 @@ function createStars(count = 50){
 }
 setInterval(()=>{ createStars(5); }, 1000);
 
-// Scroll animasyonları
+// Scroll fade-in
 function scrollFadeIn(){
   const elements = document.querySelectorAll('section');
   elements.forEach(el=>{
@@ -345,6 +355,8 @@ window.addEventListener('load', scrollFadeIn);
 
 // Başlangıçta tüm sectionlara fade-in class ekle
 document.querySelectorAll('section').forEach(s=>s.classList.add('fade-in'));
+
+}); // window load sonu
 </script>
 
 </body>

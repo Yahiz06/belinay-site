@@ -1,0 +1,71 @@
+<!-- EXTRA EKLENTİLER: CSS -->
+<style>
+/* Arka plan yıldızları */
+.star {
+  position: fixed;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  width: 2px;
+  height: 2px;
+  pointer-events: none;
+  animation: starMove linear infinite;
+  z-index: 0;
+}
+@keyframes starMove {
+  0% { transform: translateY(-10px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Hover efektleri */
+button:hover, .card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+  transition: all 0.3s ease;
+}
+
+/* Scroll fade-in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<!-- EXTRA EKLENTİLER: JS -->
+<script>
+// Arka plan yıldızları
+function createStars(count = 50){
+  for(let i=0;i<count;i++){
+    let star = document.createElement('div');
+    star.classList.add('star');
+    star.style.left = Math.random()*100 + 'vw';
+    star.style.top = Math.random()*100 + 'vh';
+    star.style.width = star.style.height = (1 + Math.random()*2)+'px';
+    star.style.animationDuration = (5 + Math.random()*10)+'s';
+    document.body.appendChild(star);
+    setTimeout(()=>star.remove(), 15000);
+  }
+}
+setInterval(()=>{ createStars(5); }, 1000);
+
+// Scroll animasyonları
+function scrollFadeIn(){
+  const elements = document.querySelectorAll('section');
+  elements.forEach(el=>{
+    const rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 50){
+      el.classList.add('show');
+    }
+  });
+}
+window.addEventListener('scroll', scrollFadeIn);
+window.addEventListener('load', scrollFadeIn);
+
+// Başlangıçta tüm sectionlara fade-in class ekle
+document.querySelectorAll('section').forEach(s=>s.classList.add('fade-in'));
+</script>

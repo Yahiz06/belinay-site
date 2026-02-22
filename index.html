@@ -101,6 +101,14 @@ justify-content:center;
 border-radius:15px;
 color:#aaa;
 }
+#special-area{
+width:80%;
+padding:40px;
+border:2px dashed #2f4f3b;
+border-radius:20px;
+margin-top:30px;
+cursor:pointer;
+}
 iframe{border-radius:15px;margin-top:20px;}
 .heart{
 position:fixed;
@@ -176,10 +184,6 @@ Biz Olduğumuz Gün: 14 Şubat 2026 🤎</p>
 </div>
 
 <div class="timeline-item">
-🌿 14 Şubat 2026 – Biz Olduğumuz Gün
-</div>
-
-<div class="timeline-item">
 🤎 İlk Kıskanışım
 </div>
 
@@ -237,14 +241,10 @@ Bunu her zaman söyleyemem ama içimde gerçekten özel bir yerin var.
 </button>
 </section>
 
-<section>
-<button onclick="showSurprise()">Buna Tıklama 🙃</button>
-<p id="surprise" class="hidden" style="margin-top:20px;">
-Seni düşündüğüm her an yüzümde istemsiz bir gülümseme oluyor.
-</p>
+<!-- Özel alan: çorba/paksır tıklamaları için -->
+<section id="special-area">
+<p>Buraya tıklayın 🍀</p>
 </section>
-
-</div>
 
 <script>
 function checkPassword(){
@@ -252,12 +252,15 @@ if(document.getElementById("password").value==="1012"){
 document.getElementById("lock").style.display="none";
 document.getElementById("main").classList.remove("hidden");
 startHearts();
-startClickEffects(); // 🕹 tıklama animasyonu başlat
+startClickEffects(); // tıklama animasyonu başlat
+startSpecialArea(); // özel alan tıklama başlat
 }else{alert("Yanlış şifre");}
 }
+
 function scrollToSection(id){
 document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
+
 const startDate=new Date("2025-12-31T00:00:00").getTime();
 setInterval(()=>{
 const now=new Date().getTime();
@@ -267,9 +270,11 @@ document.getElementById("hours").innerText=Math.floor((diff%(1000*60*60*24))/(10
 document.getElementById("minutes").innerText=Math.floor((diff%(1000*60*60))/(1000*60));
 document.getElementById("seconds").innerText=Math.floor((diff%(1000*60))/1000);
 },1000);
+
 function showSurprise(){
 document.getElementById("surprise").classList.toggle("hidden");
 }
+
 function startHearts(){
 setInterval(()=>{
 let heart=document.createElement("div");
@@ -283,16 +288,13 @@ setTimeout(()=>heart.remove(),6000);
 }
 
 // --------------------------
-// 🕹 TIKLAMA OYUNU / ÖZEL KELİMELER
+// Normal tıklamalarda animasyon
 // --------------------------
 function startClickEffects(){
-  let clickCount = 0;
-  const words = ["Paksır", "çorba"];
+  const words = ["Paksır","çorba","bizim gün"];
   
   document.addEventListener('click', function(e){
-    clickCount++;
-
-    // Kalp veya yıldız efekti
+    // Kalp veya yıldız
     let effect = document.createElement('div');
     effect.style.position = 'fixed';
     effect.style.left = (e.clientX - 10) + 'px';
@@ -316,25 +318,28 @@ function startClickEffects(){
     wordEffect.innerHTML = words[Math.floor(Math.random()*words.length)];
     document.body.appendChild(wordEffect);
     setTimeout(()=> wordEffect.remove(), 1200);
+  });
+}
 
-    // 10. tıklamada sürpriz mesaj
-    if(clickCount % 10 === 0){
-      let surprise = document.createElement('div');
-      surprise.innerHTML = "Seni çok seviyorum 💖";
-      surprise.style.position = 'fixed';
-      surprise.style.top = '50%';
-      surprise.style.left = '50%';
-      surprise.style.transform = 'translate(-50%, -50%)';
-      surprise.style.background = 'rgba(0,0,0,0.7)';
-      surprise.style.padding = '20px 40px';
-      surprise.style.borderRadius = '20px';
-      surprise.style.color = '#fff';
-      surprise.style.fontSize = '24px';
-      surprise.style.zIndex = 99999;
-      surprise.style.textAlign = 'center';
-      document.body.appendChild(surprise);
-      setTimeout(()=> surprise.remove(), 2500);
-    }
+// --------------------------
+// Özel alan tıklamaları: romantik kelimeler
+// --------------------------
+function startSpecialArea(){
+  const loveWords = ["güzelim","balım","bebegim","Belinayım"];
+  const area = document.getElementById("special-area");
+
+  area.addEventListener('click', function(e){
+    let wordEffect = document.createElement('div');
+    wordEffect.style.position = 'fixed';
+    wordEffect.style.left = (e.clientX) + 'px';
+    wordEffect.style.top = (e.clientY) + 'px';
+    wordEffect.style.color = '#fff';
+    wordEffect.style.fontSize = (16 + Math.random()*12) + 'px';
+    wordEffect.style.zIndex = 9999;
+    wordEffect.style.pointerEvents = 'none';
+    wordEffect.innerHTML = loveWords[Math.floor(Math.random()*loveWords.length)];
+    document.body.appendChild(wordEffect);
+    setTimeout(()=> wordEffect.remove(), 1200);
   });
 }
 </script>
